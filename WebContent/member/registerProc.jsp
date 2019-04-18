@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="Member.*"%>
+<%@ page import="member.*"%>
 <%request.setCharacterEncoding("UTF-8"); %>
-<jsp:useBean id="member" scope="page" class="Member.MemberDTO"></jsp:useBean>
+<jsp:useBean id="member" scope="page" class="member.MemberDTO"></jsp:useBean>
 <jsp:setProperty name="member" property="*" />
 <%    
 	MemberDAO mDao = new MemberDAO();

@@ -1,4 +1,4 @@
-package Member;
+package member;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,8 +13,8 @@ public class MemberDAO {
 	public static final int ID_DOES_NOT_EXIST = 2;
 	public static final int PASSWORD_IS_WRONG = 3;
 	public static final int DATABASE_ERROR = -1;
-
 	private Connection conn;
+
 	private static final String USERNAME = "javauser";
 	private static final String PASSWORD = "javapass";
 	private static final String URL = "jdbc:mysql://localhost:3306/world?verifyServerCertificate=false&useSSL=false";
@@ -30,13 +30,13 @@ public class MemberDAO {
 	}
 
 	public MemberDTO selectOne(int id) {
-		String query = "select * FROM member where id=?;";
+		String query ="select * FROM member where id=?;";
 		PreparedStatement pStmt = null;
 		MemberDTO member = new MemberDTO();
 
 		try {
 			pStmt = conn.prepareStatement(query);
-			pStmt.setInt(1, id);
+			pStmt.setInt(1, id); 
 			ResultSet rs = pStmt.executeQuery();
 
 			while (rs.next()) {
@@ -44,7 +44,7 @@ public class MemberDAO {
 				member.setPassword(rs.getString("password"));
 				member.setName(rs.getString("name"));
 				member.setBirthday(rs.getString("birthday"));
-				member.setAddress(rs.getString("address"));
+				member.setAddress(rs.getString("address"));	
 			}
 
 		} catch (Exception e) {
@@ -59,18 +59,18 @@ public class MemberDAO {
 		}
 		return member;
 	}
-
+	
 	public List<MemberDTO> selectAll() {
 		String sql = "select * from member order by id;";
 		List<MemberDTO> member = selectCondition(sql);
 		return member;
 	}
-
-	public List<MemberDTO> selectMemberName(String name) {
+	
+	public  List<MemberDTO> selectMemberName(String name) {
 		String sql = "select * from member where name = \"" + name + "\";";
 		List<MemberDTO> member = selectCondition(sql);
 		return member;
-	}
+	} 
 
 	// selectCondition
 	public List<MemberDTO> selectCondition(String query) {
@@ -87,8 +87,8 @@ public class MemberDAO {
 				member.setPassword(rs.getString("password"));
 				member.setName(rs.getString("name"));
 				member.setBirthday(rs.getString("birthday"));
-				member.setAddress(rs.getString("address"));
-
+				member.setAddress(rs.getString("address"));			
+				
 				list.add(member);
 			}
 
@@ -107,17 +107,19 @@ public class MemberDAO {
 
 	// insert 메소드
 	public void insertMember(MemberDTO member) {
-		String query = "insert into member(password, name, birthday, address) values (?, ?, ?, ?);";
+		String query = "insert into member(password, name, birthday, address, hashed) values (?, ?, ?, ?, ?);";
 		PreparedStatement pStmt = null;
 
 		try {
+			String hashedPassword = BCrypt.hashpw(member.getPassword(), BCrypt.gensalt());
 			pStmt = conn.prepareStatement(query);
 
-			pStmt.setString(1, member.getPassword());
+			pStmt.setString(1, "****");
 			pStmt.setString(2, member.getName());
 			pStmt.setString(3, member.getBirthday());
 			pStmt.setString(4, member.getAddress());
-
+			pStmt.setString(5, hashedPassword);
+			
 			pStmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -183,41 +185,41 @@ public class MemberDAO {
 			}
 		}
 	}
-
+	
 	// 비밀번호검증
 	public int verifyIdPassword(int id, String password) {
-		System.out.println("verifyIdPassword(): " + id + "," + password);
-		String query = "select password from member where id=?;";
-		PreparedStatement pStmt = null;
-		ResultSet rs = null;
-		String dbPassword = "";
-		try {
-			pStmt = conn.prepareStatement(query);
-			pStmt.setInt(1, id);
-			rs = pStmt.executeQuery();
-
-			while (rs.next()) {
-				dbPassword = rs.getString(1);
-				if (dbPassword.equals(password))
-					return ID_PASSWORD_MATCH;
-				else
-					return PASSWORD_IS_WRONG;
-			}
-			return ID_DOES_NOT_EXIST;
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
+			System.out.println("verifyIdPassword(): " + id + "," + password);
+			String query = "select hashed from member where id=?;";
+			PreparedStatement pStmt = null;
+			ResultSet rs = null;
+			String hashedPassword = "";
 			try {
-				rs.close();
-				if (pStmt != null && !pStmt.isClosed())
-					pStmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace();
-			}
-		}
-		return DATABASE_ERROR;
-	}
+				pStmt = conn.prepareStatement(query);
+				pStmt.setInt(1, id);
+				rs = pStmt.executeQuery();
 
+				while (rs.next()) {
+					hashedPassword = rs.getString(1);
+					if (BCrypt.checkpw(password, hashedPassword))
+						return ID_PASSWORD_MATCH;
+					else
+						return PASSWORD_IS_WRONG;
+				}
+				return ID_DOES_NOT_EXIST;
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					rs.close();
+					if (pStmt != null && !pStmt.isClosed())
+						pStmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			return DATABASE_ERROR;
+		}
+	
 	public void close() {
 		try {
 			if (conn != null && !conn.isClosed())

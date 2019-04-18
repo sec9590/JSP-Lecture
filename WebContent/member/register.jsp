@@ -21,7 +21,7 @@ td{
 	<center>
 		<h3>회원가입</h3>
 		<hr />
-		<form name="registerform" action=/jspbook/member/registerProc.jsp method=post>
+		<form name="registerform" action=/jspbook/member/RegisterProcServlet method=post>
 			<table width=300 height=300 align=center>				
 				<tr>
 					<td>비밀번호</td>

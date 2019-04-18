@@ -6,7 +6,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-@WebServlet(description = "Calc1 서블릿", urlPatterns = { "/CalcServlet" })
+@WebServlet(description = "Calc1 서블릿", urlPatterns = { "/CalcServlet1" })
 public class CalcServlet1 extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

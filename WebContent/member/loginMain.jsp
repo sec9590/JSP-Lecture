@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.*"%>
-<%@ page import="Member.*"%>
+<%@ page import="member.*"%>
 <%
 	MemberDAO mDao = new MemberDAO();
 	List<MemberDTO> memberlist = mDao.selectAll();
@@ -15,29 +15,41 @@
 tr, td {
 	text-align: center;
 }
+
+input [type=button] {
+	font-weight: bold;
+	font-size: 10pt;
+}
 </style>
 </head>
 <body>
 	<center>
 		<h3>Member List</h3>
-		<hr /><br>
-		<table border=1 align=center style="border-collapse:collapse;"
+		<hr />
+		<br>
+		<table border=1 align=center style="border-collapse: collapse;"
 			height=200 width=500>
-			<tr style="background:powderblue">
+			<tr style="background: powderblue">
 				<th>아이디</th>
 				<th>이름</th>
 				<th>생일</th>
 				<th>주소</th>
+				<th></th>
 			</tr>
 			<%
 				for (MemberDTO member : memberlist) {
 					out.println("<tr><td>" + member.getId() + "</td>");
 					out.println("<td>" + member.getName() + "</td>");
 					out.println("<td>" + member.getBirthday() + "</td>");
-					out.println("<td>" + member.getAddress() + "</td></tr>");
+					out.println("<td>" + member.getAddress() + "</td>");
+					String uri = "MemberProcServlet?action=update&id=" + member.getId();
+			%>
+			<td>&nbsp;<input type="button" value="수정" name="B2" style='background:powderblue'onClick="location.href='<%=uri%>'" />&nbsp;</td></tr>
+			<%
 				}
 			%>
 		</table>
+		<br>
 	</center>
 </body>
 </html>
