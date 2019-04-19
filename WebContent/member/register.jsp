@@ -12,8 +12,9 @@ input[type=submit], [type=reset] {
     font-size : 12pt;
 }
 td{
- font-weight : bold;
+	font-weight : bold;
     font-size : 12pt;
+    width : 400
 }
 </style>
 </head>
@@ -38,12 +39,12 @@ td{
 				</tr>
 				<tr>
 					<td>주소</td>
-					<td><input type="text" name="address" width="400" size="10" /></td>
+					<td><input type="text" name="address" width="400" size="20" /></td>
 				</tr>
 				<tr height=20></tr>
 				<tr>
-					<td align="center"><input type="submit" value="회원가입" name="B1" style='background : skyblue'/></td>
-					<td><input type="reset" value="다시입력" name="B2" style='background : pink'/></td>
+					<td align="right"><input type="submit" value="회원가입" name="B1" style='background : skyblue'/></td>
+					<td align="center"><input type="reset" value="다시입력" name="B2" style='background : pink'/></td>
 				</tr>
 			</table>
 		</form>
