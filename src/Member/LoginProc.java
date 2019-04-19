@@ -59,6 +59,10 @@ public class LoginProc extends HttpServlet {
 			/*String uri = "login.jsp?error=" + errorMessage;
 			RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
 			dispatcher.forward(request, response);*/
+			
+			//방법 3 : 상대방이 getParameter("error")로 받을 때
+			/*String uri = "login.jsp?error=" + errorMessage;
+		      response.sendRedirect(uri); */
 		}		
 	}
 

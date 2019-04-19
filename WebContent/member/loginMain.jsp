@@ -16,9 +16,10 @@ tr, td {
 	text-align: center;
 }
 
-input [type=button] {
+.button {
 	font-weight: bold;
-	font-size: 10pt;
+	font-size: 9pt;	
+	border: thin dashed steelblue;
 }
 </style>
 </head>
@@ -28,12 +29,12 @@ input [type=button] {
 		<hr />
 		<br>
 		<table border=1 align=center style="border-collapse: collapse;"
-			height=200 width=500>
+			height=200 width=600>
 			<tr style="background: powderblue">
-				<th>아이디</th>
-				<th>이름</th>
-				<th>생일</th>
-				<th>주소</th>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Birthday</th>
+				<th>Address</th>
 				<th></th>
 			</tr>
 			<%
@@ -42,9 +43,11 @@ input [type=button] {
 					out.println("<td>" + member.getName() + "</td>");
 					out.println("<td>" + member.getBirthday() + "</td>");
 					out.println("<td>" + member.getAddress() + "</td>");
-					String uri = "MemberProcServlet?action=update&id=" + member.getId();
+					String updateUri = "MemberProcServlet?action=update&id=" + member.getId();
+					String deleteUri = "MemberProcServlet?action=delete&id=" + member.getId();
 			%>
-			<td>&nbsp;<input type="button" value="수정" name="B2" style='background:powderblue'onClick="location.href='<%=uri%>'" />&nbsp;</td></tr>
+			<td>&nbsp;<input class = "button" type="button" value="수정" name="B2" style='background:powderblue'onClick="location.href='<%=updateUri%>'" />
+			&nbsp;<input class = "button" type="button" value="삭제" name="B2" style='background:powderblue'onClick="location.href='<%=deleteUri%>'" />&nbsp;</td></tr>
 			<%
 				}
 			%>

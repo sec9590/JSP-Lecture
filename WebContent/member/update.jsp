@@ -19,30 +19,28 @@ td{
 </style>
 </head>
 <body>
-	<%
-		//request.setCharacterEncoding("UTF-8");
+	<%		//request.setCharacterEncoding("UTF-8");
 		MemberDTO member = (MemberDTO) request.getAttribute("member");
 	%>
 	<center>
-		<h3>회원수정</h3>
+		<h3>Member Update</h3>
 		<hr>
-		<form name="registerForm" action=/jspbook/member/UpdateMemberServlet
-			method=post>
+		<form name="updateForm" action="/jspbook/member/UpdateMemberServlet" method=post>
 			<table width=300 height=300 align=center>
 				<tr>
-					<td>아이디</td>
-					<td><input type="hidden" value="<%=member.getName()%>" name="id" width="400" size="10" /></td>
+					<td>Id</td>
+					<td><input type="hidden" value="<%=member.getId()%>" name="id" width="400" size="10" /></td>
 				</tr>
 				<tr>
-					<td>이름</td>
+					<td>Name</td>
 					<td><input type="text" name="name" width="400" value="<%=member.getName()%>" size="10" /></td>
 				</tr>
 				<tr>
-					<td>생일</td>
+					<td>Birthday</td>
 					<td><input type="text" name="birthday" value="<%=member.getBirthday()%>" width="400" size="10" /></td>
 				</tr>
 				<tr>
-					<td>주소</td>
+					<td>Address</td>
 					<td><input type="text" name="address" value="<%=member.getAddress()%>" width="400" size="20" /></td>
 				</tr>
 				<tr height=20></tr>

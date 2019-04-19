@@ -20,25 +20,25 @@ td{
 </head>
 <body>
 	<center>
-		<h3>회원가입</h3>
+		<h3>Member Join</h3>
 		<hr />
 		<form name="registerform" action=/jspbook/member/RegisterProcServlet method=post>
 			<table width=300 height=300 align=center>				
 				<tr>
-					<td>비밀번호</td>
+					<td>PassWord</td>
 					<td><input type="password" name="password" width="400"
 						size="10" /></td>
 				</tr>
 				<tr>
-					<td>이름</td>
+					<td>Name</td>
 					<td><input type="text" name="name" width="400" size="10" /></td>
 				</tr>
 				<tr>
-					<td>생일</td>
+					<td>Birthday</td>
 					<td><input type="text" name="birthday" width="400" size="10" /></td>
 				</tr>
 				<tr>
-					<td>주소</td>
+					<td>Address</td>
 					<td><input type="text" name="address" width="400" size="20" /></td>
 				</tr>
 				<tr height=20></tr>
