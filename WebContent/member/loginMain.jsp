@@ -15,21 +15,27 @@
 tr, td {
 	text-align: center;
 }
-
 .button {
 	font-weight: bold;
 	font-size: 9pt;	
-	border: thin dashed steelblue;
+	border: 1px solid powderblue;
+	background : white;
+}
+input[type=submit] {
+    width: 5em;  height: 2.5em;
+    font-weight : bold;
+    font-size : 10pt;
+    background : powderblue;
 }
 </style>
 </head>
 <body>
 	<center>
 		<h3>Member List</h3>
+		<%=(String) session.getAttribute("memberName")%> 회원님 반갑습니다.<br>
 		<hr />
-		<br>
-		<table border=1 align=center style="border-collapse: collapse;"
-			height=200 width=600>
+		<br>		
+		<table border=1 align=center style="border-collapse: collapse;"	height=300 width=600>
 			<tr style="background: powderblue">
 				<th>ID</th>
 				<th>Name</th>
@@ -46,12 +52,15 @@ tr, td {
 					String updateUri = "MemberProcServlet?action=update&id=" + member.getId();
 					String deleteUri = "MemberProcServlet?action=delete&id=" + member.getId();
 			%>
-			<td>&nbsp;<input class = "button" type="button" value="수정" name="B2" style='background:powderblue'onClick="location.href='<%=updateUri%>'" />
-			&nbsp;<input class = "button" type="button" value="삭제" name="B2" style='background:powderblue'onClick="location.href='<%=deleteUri%>'" />&nbsp;</td></tr>
+			<td>&nbsp;<input class = "button" type="button" value="수정" name="B2" onClick="location.href='<%=updateUri%>'" />
+			&nbsp;<input class = "button" type="button" value="삭제" name="B2" onClick="location.href='<%=deleteUri%>'" />&nbsp;</td></tr>
 			<%
 				}
 			%>
-		</table>
+		</table><br>
+		<form name="loginform" action="/jspbook/member/MemberProcServlet?action=logout" method=post>
+			<input type="submit" value="로그아웃" name="B2"/>		
+		</form>
 		<br>
 	</center>
 </body>

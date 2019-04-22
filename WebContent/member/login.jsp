@@ -24,9 +24,9 @@ input[type=submit], [type=button] {
 	%>
 	<center>
 		<h3>Member Login</h3>
-		<hr />
-		                           <!-- loginProc.jsp(컨트롤러 할경우) -->
-		<form name="loginform" action=/jspbook/member/LoginProcServlet method=post>
+		<hr />		                           <!-- loginProc.jsp(컨트롤러 할경우) -->
+		<!-- <form name="loginform" action="/jspbook/member/LoginProcServlet" method=post> -->
+		<form name="loginform" action="/jspbook/member/MemberProcServlet?action=login" method=post>
 			<table width=280 align=center>
 				<tr align="center">
 					<td align=left><h4>ID</h4></td>

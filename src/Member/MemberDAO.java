@@ -29,14 +29,13 @@ public class MemberDAO {
 		}
 	}
 
-	public MemberDTO selectOne(int id) {
-		String query ="select * FROM member where id=?;";
+	public MemberDTO recentId() { //회원가입 후 세션 저장 위해
+		String sql = "select * from member order by id desc limit 1";
 		PreparedStatement pStmt = null;
 		MemberDTO member = new MemberDTO();
-
 		try {
-			pStmt = conn.prepareStatement(query);
-			pStmt.setInt(1, id); 
+			pStmt = conn.prepareStatement(sql);
+
 			ResultSet rs = pStmt.executeQuery();
 
 			while (rs.next()) {
@@ -44,7 +43,7 @@ public class MemberDAO {
 				member.setPassword(rs.getString("password"));
 				member.setName(rs.getString("name"));
 				member.setBirthday(rs.getString("birthday"));
-				member.setAddress(rs.getString("address"));	
+				member.setAddress(rs.getString("address"));
 			}
 
 		} catch (Exception e) {
@@ -59,18 +58,49 @@ public class MemberDAO {
 		}
 		return member;
 	}
-	
+
+	public MemberDTO selectOne(int id) {
+		String query = "select * FROM member where id=?;";
+		PreparedStatement pStmt = null;
+		MemberDTO member = new MemberDTO();
+
+		try {
+			pStmt = conn.prepareStatement(query);
+			pStmt.setInt(1, id);
+			ResultSet rs = pStmt.executeQuery();
+
+			while (rs.next()) {
+				member.setId(rs.getInt("id"));
+				member.setPassword(rs.getString("password"));
+				member.setName(rs.getString("name"));
+				member.setBirthday(rs.getString("birthday"));
+				member.setAddress(rs.getString("address"));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pStmt != null && !pStmt.isClosed())
+					pStmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return member;
+	}
+
 	public List<MemberDTO> selectAll() {
 		String sql = "select * from member order by id;";
 		List<MemberDTO> member = selectCondition(sql);
 		return member;
 	}
-	
-	public  List<MemberDTO> selectMemberName(String name) {
+
+	public List<MemberDTO> selectMemberName(String name) {
 		String sql = "select * from member where name = \"" + name + "\";";
 		List<MemberDTO> member = selectCondition(sql);
 		return member;
-	} 
+	}
 
 	// selectCondition
 	public List<MemberDTO> selectCondition(String query) {
@@ -87,8 +117,8 @@ public class MemberDAO {
 				member.setPassword(rs.getString("password"));
 				member.setName(rs.getString("name"));
 				member.setBirthday(rs.getString("birthday"));
-				member.setAddress(rs.getString("address"));			
-				
+				member.setAddress(rs.getString("address"));
+
 				list.add(member);
 			}
 
@@ -119,7 +149,7 @@ public class MemberDAO {
 			pStmt.setString(3, member.getBirthday());
 			pStmt.setString(4, member.getAddress());
 			pStmt.setString(5, hashedPassword);
-			
+
 			pStmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -185,41 +215,41 @@ public class MemberDAO {
 			}
 		}
 	}
-	
+
 	// 비밀번호검증
 	public int verifyIdPassword(int id, String password) {
-			System.out.println("verifyIdPassword(): " + id + "," + password);
-			String query = "select hashed from member where id=?;";
-			PreparedStatement pStmt = null;
-			ResultSet rs = null;
-			String hashedPassword = "";
-			try {
-				pStmt = conn.prepareStatement(query);
-				pStmt.setInt(1, id);
-				rs = pStmt.executeQuery();
+		System.out.println("verifyIdPassword(): " + id + "," + password);
+		String query = "select hashed from member where id=?;";
+		PreparedStatement pStmt = null;
+		ResultSet rs = null;
+		String hashedPassword = "";
+		try {
+			pStmt = conn.prepareStatement(query);
+			pStmt.setInt(1, id);
+			rs = pStmt.executeQuery();
 
-				while (rs.next()) {
-					hashedPassword = rs.getString(1);
-					if (BCrypt.checkpw(password, hashedPassword))
-						return ID_PASSWORD_MATCH;
-					else
-						return PASSWORD_IS_WRONG;
-				}
-				return ID_DOES_NOT_EXIST;
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					rs.close();
-					if (pStmt != null && !pStmt.isClosed())
-						pStmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
+			while (rs.next()) {
+				hashedPassword = rs.getString(1);
+				if (BCrypt.checkpw(password, hashedPassword))
+					return ID_PASSWORD_MATCH;
+				else
+					return PASSWORD_IS_WRONG;
 			}
-			return DATABASE_ERROR;
+			return ID_DOES_NOT_EXIST;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				if (pStmt != null && !pStmt.isClosed())
+					pStmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
 		}
-	
+		return DATABASE_ERROR;
+	}
+
 	public void close() {
 		try {
 			if (conn != null && !conn.isClosed())

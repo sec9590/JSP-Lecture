@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>ex6-1</title>
+    <script language=javascript>document.cookie = "test=OK. " </script>
+</head>
+
+<body>
+    <center>
+        <h2>request test form</h2>
+        <hr>
+        <form action="request_result.jsp" name="form1" method="POST">
+            <table border=1 cellspacing="1" cellpadding="5">
+                <tr>
+                    <td>name</td>
+                    <td><input type="text" size=10 name="username"></td>
+                </tr>
+                <tr>
+                    <td>job</td>
+                    <td><select name="job" id="">
+                        <option selected>no job</option>
+                        <option>salaryman</option>
+                        <option>professional</option>
+                        <option>student</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td>interest field</td>
+                    <td>               
+                        <input type="checkbox" name="favorite" value="politics">politics</input>
+                        <input type="checkbox" name="favorite" value="society">society</input>
+                        <input type="checkbox" name="favorite" value="ICT">ICT</input>
+                    </td>
+                </tr>
+                <tr><td colspan="2" align="center"><input type="submit" value="check"> <input type="reset" value="cancel"></td></tr>
+            </table>
+        </form>
+
+    </center>
+</body>
+
+</html>

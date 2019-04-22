@@ -25,7 +25,8 @@ td{
 	<center>
 		<h3>Member Update</h3>
 		<hr>
-		<form name="updateForm" action="/jspbook/member/UpdateMemberServlet" method=post>
+		<!-- <form name="updateForm" action="/jspbook/member/UpdateMemberServlet" method=post> -->
+		<form name="updateForm" action="/jspbook/member/MemberProcServlet?action=execute" method=post>
 			<table width=300 height=300 align=center>
 				<tr>
 					<td>Id</td>
