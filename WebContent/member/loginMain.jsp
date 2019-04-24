@@ -27,20 +27,31 @@ input[type=submit] {
     font-size : 10pt;
     background : powderblue;
 }
+a{
+text-decoration:none ;
+color : steelblue;
+font-weight : bold;
+}
+a:hover{
+color : pink;
+}
 </style>
 </head>
 <body>
 	<center>
-		<h3>Member List</h3>
+		<h3>회원 목록</h3>
 		<%=(String) session.getAttribute("memberName")%> 회원님 반갑습니다.<br>
-		<hr />
-		<br>		
+		<hr />	
+		<a href='/jspbook/member/twitter_list.jsp'> 트위터 </a> &nbsp;
+		<a href='/jspbook/member/bbs_list.jsp'> 게시판 </a>
+		<br>
+		<br>
 		<table border=1 align=center style="border-collapse: collapse;"	height=300 width=600>
 			<tr style="background: powderblue">
-				<th>ID</th>
-				<th>Name</th>
-				<th>Birthday</th>
-				<th>Address</th>
+				<th>아이디</th>
+				<th>이름</th>
+				<th>생년월일</th>
+				<th>주소</th>
 				<th></th>
 			</tr>
 			<%
@@ -59,7 +70,7 @@ input[type=submit] {
 			%>
 		</table><br>
 		<form name="loginform" action="/jspbook/member/MemberProcServlet?action=logout" method=post>
-			<input type="submit" value="로그아웃" name="B2"/>		
+			<input type="submit" value="로그아웃" name="B2"/>					
 		</form>
 		<br>
 	</center>

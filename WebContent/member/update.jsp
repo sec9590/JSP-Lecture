@@ -23,25 +23,25 @@ td{
 		MemberDTO member = (MemberDTO) request.getAttribute("member");
 	%>
 	<center>
-		<h3>Member Update</h3>
+		<h3>회원 수정</h3>
 		<hr>
 		<!-- <form name="updateForm" action="/jspbook/member/UpdateMemberServlet" method=post> -->
 		<form name="updateForm" action="/jspbook/member/MemberProcServlet?action=execute" method=post>
 			<table width=300 height=300 align=center>
 				<tr>
-					<td>Id</td>
+					<td>아이디</td>
 					<td><input type="hidden" value="<%=member.getId()%>" name="id" width="400" size="10" /></td>
 				</tr>
 				<tr>
-					<td>Name</td>
+					<td>이름</td>
 					<td><input type="text" name="name" width="400" value="<%=member.getName()%>" size="10" /></td>
 				</tr>
 				<tr>
-					<td>Birthday</td>
+					<td>생년월일</td>
 					<td><input type="text" name="birthday" value="<%=member.getBirthday()%>" width="400" size="10" /></td>
 				</tr>
 				<tr>
-					<td>Address</td>
+					<td>주소</td>
 					<td><input type="text" name="address" value="<%=member.getAddress()%>" width="400" size="20" /></td>
 				</tr>
 				<tr height=20></tr>
