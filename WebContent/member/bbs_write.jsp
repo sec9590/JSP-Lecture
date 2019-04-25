@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,9 +21,8 @@ td{
 <body>
 	<center>
 		<h3>글쓰기</h3>
-		<hr />		
-		<%String writeurl = "/jspbook/member/BbsProcServlet?action=write&memberid=" + (Integer) session.getAttribute("memberId");  %>
-		<form name="bbswriteform" action=<%=writeurl%> method=post>
+		<hr />			
+		<form name="bbswriteform" action="/jspbook/member/BbsProcServlet?action=write&memberid=${memberId}" method=post>
 			<table width=400 height=300 align=center>				
 				<tr>
 					<td width=100>제목</td>

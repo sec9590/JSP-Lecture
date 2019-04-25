@@ -68,33 +68,32 @@ public class BbsProc extends HttpServlet {
 			if (!request.getParameter("page").equals("")) {
 				curPage = Integer.parseInt(request.getParameter("page"));
 			}
-
 			bDAO = new BbsDAO();
 			int count = bDAO.getCount();
-			if (count == 0) // 데이터가 없을 때 대비
+			if (count == 0)			// 데이터가 없을 때 대비
 				count = 1;
-			int pageNo = (int) Math.ceil(count / 10.0);
-			if (curPage > pageNo) // 경계선에 걸렸을 때 대비
+			int pageNo = (int)Math.ceil(count/10.0);
+			if (curPage > pageNo)	// 경계선에 걸렸을 때 대비
 				curPage--;
 			session.setAttribute("currentBbsPage", curPage);
 			// 리스트 페이지의 하단 페이지 데이터 만들어 주기
 			String page = null;
 			page = "<a href=#>&laquo;</a>&nbsp;";
 			pageList.add(page);
-			for (int i = 1; i <= pageNo; i++) {
+			for (int i=1; i<=pageNo; i++) {
 				page = "&nbsp;<a href=BbsProcServlet?action=list&page=" + i + ">" + i + "</a>&nbsp;";
 				pageList.add(page);
 			}
 			page = "&nbsp;<a href=#>&raquo;</a>";
 			pageList.add(page);
-
+			
 			List<BbsDTO> bmList = bDAO.selectJoinAll(curPage);
 			request.setAttribute("bbsMemberList", bmList);
 			request.setAttribute("pageList", pageList);
 			rd = request.getRequestDispatcher("bbs_list.jsp");
-			rd.forward(request, response);
+	        rd.forward(request, response);
 			break;
-
+			
 		case "write":
 			memberid = Integer.parseInt(request.getParameter("memberid"));
 			title = request.getParameter("title");
@@ -108,7 +107,7 @@ public class BbsProc extends HttpServlet {
 			bDAO.insertBbs(bbs);
 
 			message = memberid + " 의 글작성이 완료되었습니다.";
-			url = "bbs_list.jsp";
+			url = "BbsProcServlet?action=list&page=1";
 			request.setAttribute("message", message);
 			request.setAttribute("url", url);
 			rd = request.getRequestDispatcher("alertMsg.jsp");
@@ -123,7 +122,10 @@ public class BbsProc extends HttpServlet {
 
 			bDAO = new BbsDAO();
 			bbs = bDAO.selectMemberId(id);
+			content = bbs.getContent().replaceAll("\r\n", "<br>");
+			bbs.setContent(content);
 			bDAO.close();
+			request.setAttribute("id", id);
 			request.setAttribute("bbs", bbs);
 			rd = request.getRequestDispatcher("bbs_detailview.jsp");
 			rd.forward(request, response);
@@ -136,10 +138,13 @@ public class BbsProc extends HttpServlet {
 			bDAO = new BbsDAO();
 			bbs = bDAO.selectOne(id);
 			request.setAttribute("name", bDAO.selectMemberId(id).getName());
-
+			content = bbs.getContent().replaceAll("<br>", "\r\n");
+			bbs.setContent(content);
+			curPage = (int)session.getAttribute("currentBbsPage");
+			
 			if (bbs.getMemberId() != (Integer) session.getAttribute("memberId")) {
 				message = "수정 권한이 없습니다.";
-				url = "bbs_list.jsp";
+				url = "BbsProcServlet?action=list&page=" + curPage;
 				request.setAttribute("message", message);
 				request.setAttribute("url", url);
 				rd = request.getRequestDispatcher("alertMsg.jsp");
@@ -166,13 +171,14 @@ public class BbsProc extends HttpServlet {
 			bbs.setTitle(title);
 			bbs.setContent(content);
 			System.out.println(bbs.toString());
-
+			curPage = (int)session.getAttribute("currentBbsPage");
 			bDAO.updateBbs(bbs);
 			bDAO.close();
 
 			message = "수정되었습니다.\\n";
 			request.setAttribute("message", message);
-			request.setAttribute("url", "bbs_list.jsp");
+			String executeurl =  "BbsProcServlet?action=list&page=" + curPage;
+			request.setAttribute("url", executeurl);
 			rd = request.getRequestDispatcher("alertMsg.jsp");
 			rd.forward(request, response);
 			// response.sendRedirect("loginMain.jsp");
@@ -185,21 +191,22 @@ public class BbsProc extends HttpServlet {
 
 			bDAO = new BbsDAO();
 			bbs = bDAO.selectOne(id);
-			bDAO.deleteBbs(bbs);
+			curPage = (int)session.getAttribute("currentBbsPage");
 
 			if (bbs.getMemberId() != (Integer) session.getAttribute("memberId")) {
 				message = "삭제 권한이 없습니다.";
-				url = "bbs_list.jsp";
+				url = "BbsProcServlet?action=list&page=" + curPage;
 				request.setAttribute("message", message);
 				request.setAttribute("url", url);
 				rd = request.getRequestDispatcher("alertMsg.jsp");
 				rd.forward(request, response);
 				break;
 			}
-
+			
+			bDAO.deleteBbs(bbs);
 			bDAO.close();
 			message = "id = " + id + " 이/가 삭제되었습니다.";
-			url = "bbs_list.jsp";
+			url = "BbsProcServlet?action=list&page=1";
 			request.setAttribute("message", message);
 			request.setAttribute("url", url);
 			rd = request.getRequestDispatcher("alertMsg.jsp");

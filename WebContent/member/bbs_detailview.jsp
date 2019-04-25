@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*"%>
 <%@ page import="member.*"%>
-	<%		//request.setCharacterEncoding("UTF-8");
-		BbsDTO bbs= (BbsDTO) request.getAttribute("bbs");
-	%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -30,29 +28,33 @@ input[type=submit] {
 </head>
 <body>
 <center>
-		<h3>상세조회</h3>
-		글 목록 <%=request.getParameter("id")%> 번 상세조회입니다.<br>
-		<hr />		
+		<c:set var="bbs" value="${requestScope.bbs}"/>
+		<h3>상세조회</h3>		
+		<hr/>		
 		<br>
-		<table border=1 align=center style="border-collapse: collapse;"	height=200 width=500>		
+		<table border=1 align=center style="border-collapse: collapse;"	width=500>		
+			<tr>
+			<td style = "background : powderblue; font-weight : bold;">글번호</td>
+			<td>${requestScope.id}</td>
+			</tr>
 			<tr>
 			<td style = "background : powderblue; font-weight : bold;">제목</td>
-			<td><%=bbs.getTitle()%></td>
+			<td>${bbs.title}</td>
 			</tr>
 			<tr>
 			<td style = "background : powderblue; font-weight : bold;">글쓴이</td>
-			<td><%=bbs.getName()%></td>
+			<td>${bbs.name}</td>
 			</tr>	
 			<tr>
 			<td style = "background : powderblue; font-weight : bold;">날짜</td>
-			<td><%=bbs.getDate()%></td>
+			<td>${bbs.date}</td>
 			</tr>		
 			<tr>
 			<td style = "background : powderblue; font-weight : bold;">내용</td>
-			<td><%=bbs.getContent().replaceAll("\r\n", "<br>")%></td>
+			<td>${bbs.content}</td>
 			</tr>
 		</table><br>
-		<form name="form" action="bbs_list.jsp"method=post>
+		<form name="form" action="BbsProcServlet?action=list&page=1"method=post>
 			<input type="submit" value="글목록" name="B2"/>					
 		</form>
 		<br>

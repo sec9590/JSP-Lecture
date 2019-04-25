@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class MemberDAO {
 	public static final int ID_PASSWORD_MATCH = 1;
@@ -29,7 +30,7 @@ public class MemberDAO {
 		}
 	}
 
-	public MemberDTO recentId() { //회원가입 후 세션 저장 위해
+	public MemberDTO recentId() { // 회원가입 후 세션 저장 위해
 		String sql = "select * from member order by id desc limit 1";
 		PreparedStatement pStmt = null;
 		MemberDTO member = new MemberDTO();
@@ -90,10 +91,69 @@ public class MemberDAO {
 		return member;
 	}
 
-	public List<MemberDTO> selectAll() {
-		String sql = "select * from member order by id;";
-		List<MemberDTO> member = selectCondition(sql);
-		return member;
+	public int getCount() {
+		String query = "select count(*) from member;";
+		PreparedStatement pStmt = null;
+		int count = 0;
+		try {
+			pStmt = conn.prepareStatement(query);
+			ResultSet rs = pStmt.executeQuery();
+			while (rs.next()) {
+				count = rs.getInt(1);
+			}
+			rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pStmt != null && !pStmt.isClosed())
+					pStmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return count;
+	}
+
+	public List<MemberDTO> selectAll(int page) {
+		int offset = 0;
+		String sql = null;
+		if (page == 0) {
+			sql = "select * from member order by id;";
+		} else {
+			sql = "select * from member order by id limit ?, 10;";
+			offset = (page - 1) * 10;
+		}
+		PreparedStatement pStmt = null;
+		List<MemberDTO> list = new ArrayList<MemberDTO>();
+		try {
+			pStmt = conn.prepareStatement(sql);
+			if (page != 0)
+				pStmt.setInt(1, offset);
+			ResultSet rs = pStmt.executeQuery();
+
+			while (rs.next()) {
+				MemberDTO member = new MemberDTO();
+				member.setId(rs.getInt("id"));
+				member.setPassword(rs.getString("password"));
+				member.setName(rs.getString("name"));
+				member.setBirthday(rs.getString("birthday"));
+				member.setAddress(rs.getString("address"));
+
+				list.add(member);
+			}
+			rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pStmt != null && !pStmt.isClosed())
+					pStmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return list;
 	}
 
 	public List<MemberDTO> selectMemberName(String name) {
