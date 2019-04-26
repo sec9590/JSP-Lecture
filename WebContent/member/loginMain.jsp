@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8" import="java.util.*"%>
 <%@ page import="member.*"%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+
 <title>loginMain.jsp</title>
 <style>
 tr, td {
@@ -46,10 +48,11 @@ a {
 		<b>${memberName}</b> 회원님 반갑습니다.<br>
 		<hr />	
 		<a href='/jspbook/member/twitter_list.jsp' class="list"> 트위터 </a> &nbsp;
-		<a href='BbsProcServlet?action=list&page=1'  class="list"> 게시판 </a>
+		<a href='BbsProcServlet?action=list&page=1'  class="list"> 게시판 </a> &nbsp;
+		<a href='FileProcServlet?action=member' class="list"> 다운로드 </a>
 		<br>
 		<br>		
-		<table border=1 align=center style="border-collapse: collapse;"	width=600>
+		<table border=1 align=center style="border-collapse: collapse; text-align:center;"	width=600>
 			<tr height = 30 style="background: powderblue">
 				<th>아이디</th>
 				<th>이름</th>

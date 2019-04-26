@@ -27,15 +27,15 @@ td{
 				<tr>
 					<td>PassWord</td>
 					<td><input type="password" name="password" width="400"
-						size="10" /></td>
+						size="20" /></td>
 				</tr>
 				<tr>
 					<td>Name</td>
-					<td><input type="text" name="name" width="400" size="10" /></td>
+					<td><input type="text" name="name" width="400" size="20" /></td>
 				</tr>
 				<tr>
 					<td>Birthday</td>
-					<td><input type="text" name="birthday" width="400" size="10" /></td>
+					<td><input type="text" name="birthday" width="400" size="20" /></td>
 				</tr>
 				<tr>
 					<td>Address</td>

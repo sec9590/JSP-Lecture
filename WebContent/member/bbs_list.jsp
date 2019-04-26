@@ -50,7 +50,8 @@ a {
 		<b>${memberName}</b> 회원님 반갑습니다.<br>
 		<hr />
 		<a href='MemberProcServlet?action=list&page=1' class="list"> 회원목록 </a> &nbsp;
-		<a href='/jspbook/member/twitter_list.jsp' class="list"> 트위터 </a> <br>
+		<a href='/jspbook/member/twitter_list.jsp' class="list"> 트위터 </a> &nbsp;
+		<a href='FileProcServlet?action=bbs' class="list"> 다운로드 </a><br>
 		<br>
 		<table border=1 align=center style="border-collapse: collapse;"
 			width=600>

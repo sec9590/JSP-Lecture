@@ -13,10 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @WebServlet("/member/MemberProcServlet")
 public class MemberProc extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
+	private static final long serialVersionUID = 1L;	
 	public MemberProc() {
 		super();
 		// TODO Auto-generated constructor stub
