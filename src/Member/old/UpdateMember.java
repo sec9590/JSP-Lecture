@@ -1,4 +1,4 @@
-package member.old;
+package Member.old;
 
 import java.io.IOException;
 
@@ -9,8 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.MemberDAO;
-import member.MemberDTO;
+import Member.*;
 
 @WebServlet("/member/UpdateMemberServlet")
 public class UpdateMember extends HttpServlet {

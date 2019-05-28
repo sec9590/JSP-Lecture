@@ -1,4 +1,4 @@
-package member;
+package Member;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@WebServlet("/member/MemberProcServlet")
+@WebServlet("/Member/MemberProcServlet")
 public class MemberProc extends HttpServlet {
 	private static final long serialVersionUID = 1L;	
 	public MemberProc() {

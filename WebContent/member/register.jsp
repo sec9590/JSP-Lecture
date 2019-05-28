@@ -22,7 +22,7 @@ td{
 		<h3>Member Join</h3>
 		<hr />
 		<!-- <form name="registerform" action=/jspbook/member/RegisterProcServlet method=post> -->
-		<form name="registerform" action="/jspbook/member/MemberProcServlet?action=register" method=post>
+		<form name="registerform" action="/jspbook/Member/MemberProcServlet?action=register" method=post>
 			<table width=300 height=300 align=center>				
 				<tr>
 					<td>PassWord</td>

@@ -1,4 +1,4 @@
-package member;
+package Member;
 
 import java.io.FileWriter;
 import java.io.IOException;

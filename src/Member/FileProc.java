@@ -1,4 +1,4 @@
-package member;
+package Member;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

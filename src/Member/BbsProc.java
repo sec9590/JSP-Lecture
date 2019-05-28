@@ -1,5 +1,4 @@
-package member;
-
+package Member;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class BbsProc
  */
-@WebServlet("/member/BbsProcServlet")
+@WebServlet("/Member/BbsProcServlet")
 public class BbsProc extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

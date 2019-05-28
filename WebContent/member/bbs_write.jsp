@@ -22,7 +22,7 @@ td{
 	<center>
 		<h3>글쓰기</h3>
 		<hr />			
-		<form name="bbswriteform" action="/jspbook/member/BbsProcServlet?action=write&memberid=${memberId}" method=post>
+		<form name="bbswriteform" action="/jspbook/Member/BbsProcServlet?action=write&memberid=${memberId}" method=post>
 			<table width=400 height=300 align=center>				
 				<tr>
 					<td width=100>제목</td>
